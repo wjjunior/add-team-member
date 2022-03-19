@@ -5,6 +5,7 @@
         <b-card
           style="max-width: 30rem; height: 40rem; padding: 0"
           title="Add Team Member"
+          footer-tag="footer"
         >
           <div
             class="avatar mt-4"
@@ -26,18 +27,22 @@
             ref="fileInput"
           />
           <b-form class="register-form">
-            <b-row class="mt-4">
+            <b-row class="mt-3">
               <b-col class="label"><label>Full Name</label></b-col>
               <b-col class="required">Required</b-col>
             </b-row>
             <b-row>
               <b-form-input
                 id="input-1"
-                v-model="form.username"
+                v-model="form.fullName"
                 required
+                v-bind:class="{ 'has-error': !!this.errors.fullName }"
               ></b-form-input>
+              <p class="error-message" v-if="errors.fullName">
+                {{ this.errors.fullName }}
+              </p>
             </b-row>
-            <b-row class="mt-4">
+            <b-row class="mt-3">
               <b-col class="label"><label>Email</label></b-col>
               <b-col class="required">Required</b-col>
             </b-row>
@@ -46,9 +51,13 @@
                 id="input-1"
                 v-model="form.email"
                 required
+                v-bind:class="{ 'has-error': !!this.errors.email }"
               ></b-form-input>
+              <p class="error-message" v-if="errors.email">
+                {{ this.errors.email }}
+              </p>
             </b-row>
-            <b-row class="mt-4">
+            <b-row class="mt-3">
               <b-col class="label"><label>Job Title</label></b-col>
               <b-col class="required">Required</b-col>
             </b-row>
@@ -57,14 +66,24 @@
                 id="input-1"
                 v-model="form.jobTitle"
                 required
+                v-bind:class="{ 'has-error': !!this.errors.jobTitle }"
               ></b-form-input>
+              <p class="error-message" v-if="errors.jobTitle">
+                {{ this.errors.jobTitle }}
+              </p>
             </b-row>
           </b-form>
-          <div class="mt-3 pt-4 btn-div">
-            <b-button variant="primary" class="add-btn" @click="login()"
+          <template #footer>
+            <div class="btn-div">
+            <b-button
+              variant="primary"
+              class="add-btn"
+              @click="submit()"
+              size="lg"
               >Add Team Member</b-button
             >
           </div>
+          </template>
         </b-card>
       </b-row>
     </b-container>
@@ -76,8 +95,13 @@ export default {
   name: "App",
   data() {
     return {
+      errors: {
+        fullName: null,
+        email: null,
+        jobTitle: null,
+      },
       form: {
-        username: "",
+        fullName: "",
         email: "",
         jobTitle: "",
         avatar: null,
@@ -85,8 +109,10 @@ export default {
     };
   },
   methods: {
-    login() {
-      console.log("login");
+    submit() {
+      if(this.checkForm()) {
+        console.log(JSON.stringify(this.form))
+      }
     },
     uploadImage(e) {
       const image = e.target.files[0];
@@ -98,6 +124,29 @@ export default {
     },
     onPickFile() {
       this.$refs.fileInput.click();
+    },
+    checkForm() {
+      this.errors = {
+        fullName: null,
+        email: null,
+        jobTitle: null,
+      };
+
+      if (this.form.fullName && this.form.email && this.form.jobTitle) {
+        return true;
+      }
+
+      if (!this.form.fullName) {
+        this.errors.fullName = "Name is required.";
+      }
+      if (!this.form.email) {
+        this.errors.email = "Email is required.";
+      }
+      if (!this.form.jobTitle) {
+        this.errors.jobTitle = "Job Title is required.";
+      }
+
+      return false
     },
   },
 };
@@ -129,7 +178,6 @@ export default {
 }
 
 .btn-div {
-  border-top: 1px solid #dfdfdf;
   padding-right: 22%;
   padding-left: 22%;
 }
@@ -186,5 +234,21 @@ export default {
 .upload-avatar svg {
   width: 1rem;
   padding-top: 10%;
+}
+
+.error-message {
+  padding: 0 !important;
+  text-align: left;
+  color: #dd3444;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+.has-error {
+  border-color: #dd3444 !important;
+}
+
+.card-footer {
+  background-color: #fff !important;
 }
 </style>
