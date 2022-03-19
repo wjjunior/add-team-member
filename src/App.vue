@@ -2,13 +2,9 @@
   <div id="app" class="jumbotron d-flex align-items-center">
     <b-container fluid>
       <b-row class="justify-content-md-center">
-        <b-card
-          style="max-width: 30rem; height: 40rem; padding: 0"
-          title="Add Team Member"
-          footer-tag="footer"
-        >
+        <b-card title="Add Team Member" footer-tag="footer">
           <ImageUploader v-model="form.avatar" />
-          <b-form class="register-form">
+          <b-form>
             <BaseInput
               v-model="form.fullName"
               required
@@ -29,14 +25,10 @@
             />
           </b-form>
           <template #footer>
-            <div class="btn-div">
-              <b-button
-                variant="primary"
-                class="add-btn"
-                @click="submit()"
-                size="lg"
-                >Add Team Member</b-button
-              >
+            <div>
+              <b-button variant="primary" @click="submit()" size="lg"
+                >Add Team Member
+              </b-button>
             </div>
           </template>
         </b-card>
@@ -46,7 +38,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import BaseInput from "./components/BaseInput";
 import ImageUploader from "./components/ImageUploader";
 
@@ -74,9 +66,9 @@ export default {
   methods: {
     submit() {
       if (this.checkForm()) {
-        axios.post('api/v1/my-forml', {
-          jsonData: JSON.stringify(this.form)
-        })
+        axios.post("api/v1/my-forml", {
+          jsonData: JSON.stringify(this.form),
+        });
       }
     },
     checkForm() {
@@ -106,63 +98,50 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "./scss/_globals.scss";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
   height: 100vh;
 }
 
-.register-form {
-  padding-right: 25%;
-  padding-left: 25%;
-}
+.card {
+  max-width: 30rem !important;
+  height: 40rem;
+  padding: 0 !important;
 
-.card-body {
-  padding: 1rem 0rem !important;
-}
+  .card-title {
+    border-bottom: 0.063rem solid $gray;
+    padding-bottom: 1rem;
+    font-weight: bold;
+  }
 
-.card-title {
-  border-bottom: 1px solid #dfdfdf;
-  padding-bottom: 1rem;
-  font-weight: bold;
-}
+  .card-body {
+    padding: 1rem 0rem !important;
 
-.btn-div {
-  padding-right: 22%;
-  padding-left: 22%;
-}
+    form {
+      padding-right: 25%;
+      padding-left: 25%;
+    }
+  }
 
-.required {
-  text-align: end;
-  padding-right: 0 !important;
-  color: #b2b2b2;
-  font-weight: bold;
-  font-size: 0.7rem;
-  padding-top: 0.5rem;
-}
+  .card-footer {
+    background-color: $white!important;
 
-.label {
-  text-align: left;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding-left: 0 !important;
-  padding-top: 0.2rem;
-}
+    div:first-child {
+      padding-right: 22%;
+      padding-left: 22%;
 
-.add-btn {
-  background-color: #2f4d78 !important;
-  border-color: #2f4d78 !important;
-  color: #fff !important;
-  width: 100%;
-  font-weight: bold !important;
-  font-size: 0.9rem !important;
-}
-
-.card-footer {
-  background-color: #fff !important;
+      button {
+        background-color: $dark-blue !important;
+        border-color: $dark-blue !important;
+        color: $white !important;
+        width: 100%;
+        font-weight: bold !important;
+        font-size: 0.9rem !important;
+      }
+    }
+  }
 }
 </style>
