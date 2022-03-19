@@ -2,71 +2,77 @@
   <div id="app" class="jumbotron d-flex align-items-center">
     <b-container fluid>
       <b-row class="justify-content-md-center">
-   <b-card style="max-width: 30rem; height: 40rem; padding: 0;" title="Add Team Member">
-      <b-form class="register-form">
-        <b-row class="mt-4">
-          <b-col class="label"><label>Full Name</label></b-col>
-          <b-col class="required">Required</b-col>
-        </b-row>
-        <b-row>
-          <b-form-input
-          id="input-1"
-          v-model="form.username"
-          required
-        ></b-form-input>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col class="label"><label>Email</label></b-col>
-          <b-col class="required">Required</b-col>
-        </b-row>
-        <b-row>
-          <b-form-input
-          id="input-1"
-          v-model="form.email"
-          required
-        ></b-form-input>
-        </b-row>
-        <b-row class="mt-4">
-          <b-col class="label"><label>Job Title</label></b-col>
-          <b-col class="required">Required</b-col>
-        </b-row>
-        <b-row>
-          <b-form-input
-          id="input-1"
-          v-model="form.jobTitle"
-          required
-        ></b-form-input>
-        </b-row>
-      </b-form>
-       <div class="mt-3 pt-4 btn-div">
-          <b-button variant="primary" class="add-btn" @click="login()">Add Team Member</b-button>
-        </div>
-   </b-card>
-   </b-row>
-   </b-container>
+        <b-card
+          style="max-width: 30rem; height: 40rem; padding: 0"
+          title="Add Team Member"
+        >
+          <div class="avatar mt-4">
+            <div class="upload-avatar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg></div>
+          </div>
+          <b-form class="register-form">
+            <b-row class="mt-4">
+              <b-col class="label"><label>Full Name</label></b-col>
+              <b-col class="required">Required</b-col>
+            </b-row>
+            <b-row>
+              <b-form-input
+                id="input-1"
+                v-model="form.username"
+                required
+              ></b-form-input>
+            </b-row>
+            <b-row class="mt-4">
+              <b-col class="label"><label>Email</label></b-col>
+              <b-col class="required">Required</b-col>
+            </b-row>
+            <b-row>
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                required
+              ></b-form-input>
+            </b-row>
+            <b-row class="mt-4">
+              <b-col class="label"><label>Job Title</label></b-col>
+              <b-col class="required">Required</b-col>
+            </b-row>
+            <b-row>
+              <b-form-input
+                id="input-1"
+                v-model="form.jobTitle"
+                required
+              ></b-form-input>
+            </b-row>
+          </b-form>
+          <div class="mt-3 pt-4 btn-div">
+            <b-button variant="primary" class="add-btn" @click="login()"
+              >Add Team Member</b-button
+            >
+          </div>
+        </b-card>
+      </b-row>
+    </b-container>
   </div>
-  
 </template>
 
 <script>
-
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
       form: {
         username: "",
         email: "",
-        jobTitle: ""
-      }
-    }
+        jobTitle: "",
+      },
+    };
   },
   method: {
     login() {
-      console.log('login')
-    }
-  }
-}
+      console.log("login");
+    },
+  },
+};
 </script>
 
 <style>
@@ -84,19 +90,18 @@ export default {
   padding-left: 25%;
 }
 
-
 .card-body {
   padding: 1rem 0rem !important;
 }
 
 .card-title {
-  border-bottom: 1px solid #DFDFDF;
+  border-bottom: 1px solid #dfdfdf;
   padding-bottom: 1rem;
   font-weight: bold;
 }
 
 .btn-div {
-  border-top: 1px solid #DFDFDF;
+  border-top: 1px solid #dfdfdf;
   padding-right: 22%;
   padding-left: 22%;
 }
@@ -104,7 +109,7 @@ export default {
 .required {
   text-align: end;
   padding-right: 0 !important;
-  color: #B2B2B2;
+  color: #b2b2b2;
   font-weight: bold;
   font-size: 0.7rem;
   padding-top: 0.5rem;
@@ -119,11 +124,37 @@ export default {
 }
 
 .add-btn {
-  background-color: #2F4D78 !important;
-  border-color: #2F4D78 !important;
+  background-color: #2f4d78 !important;
+  border-color: #2f4d78 !important;
   color: #fff !important;
   width: 100%;
   font-weight: bold !important;
   font-size: 0.9rem !important;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  border: 0.45rem solid #E4E7EB;
+  border-radius: 100%;
+  position: relative;
+  }
+  
+.upload-avatar {
+  border: 0.45rem solid #E4E7EB;
+  background-color: #fff;
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  position: absolute;
+  bottom: 3rem;
+  right: -1.5rem;
+  cursor: pointer;
+}
+
+.upload-avatar svg {
+  width: 1rem;
+  padding-top: 10%;
 }
 </style>
