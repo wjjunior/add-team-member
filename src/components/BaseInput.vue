@@ -4,12 +4,12 @@
       <b-col class="label"
         ><label>{{ label }}</label></b-col
       >
-      <b-col class="required">Required</b-col>
+      <b-col class="required" v-if="required">Required</b-col>
     </b-row>
     <b-row>
       <input
         @input="$emit('input', $event.target.value)"
-        required
+        :required="this.required"
         class="form-control"
         v-bind:class="{ 'has-error': !!this.error }"
       />
@@ -32,6 +32,10 @@ export default {
     error: {
       type: String,
     },
+    required: {
+        type: Boolean,
+        default: false
+    }
   },
 };
 </script>
