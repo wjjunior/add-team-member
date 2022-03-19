@@ -27,51 +27,9 @@
             ref="fileInput"
           />
           <b-form class="register-form">
-            <b-row class="mt-3">
-              <b-col class="label"><label>Full Name</label></b-col>
-              <b-col class="required">Required</b-col>
-            </b-row>
-            <b-row>
-              <b-form-input
-                id="input-1"
-                v-model="form.fullName"
-                required
-                v-bind:class="{ 'has-error': !!this.errors.fullName }"
-              ></b-form-input>
-              <p class="error-message" v-if="errors.fullName">
-                {{ this.errors.fullName }}
-              </p>
-            </b-row>
-            <b-row class="mt-3">
-              <b-col class="label"><label>Email</label></b-col>
-              <b-col class="required">Required</b-col>
-            </b-row>
-            <b-row>
-              <b-form-input
-                id="input-1"
-                v-model="form.email"
-                required
-                v-bind:class="{ 'has-error': !!this.errors.email }"
-              ></b-form-input>
-              <p class="error-message" v-if="errors.email">
-                {{ this.errors.email }}
-              </p>
-            </b-row>
-            <b-row class="mt-3">
-              <b-col class="label"><label>Job Title</label></b-col>
-              <b-col class="required">Required</b-col>
-            </b-row>
-            <b-row>
-              <b-form-input
-                id="input-1"
-                v-model="form.jobTitle"
-                required
-                v-bind:class="{ 'has-error': !!this.errors.jobTitle }"
-              ></b-form-input>
-              <p class="error-message" v-if="errors.jobTitle">
-                {{ this.errors.jobTitle }}
-              </p>
-            </b-row>
+            <BaseInput v-model="form.fullName" required label="Full Name" :error="errors.fullName"/>
+            <BaseInput v-model="form.email" required label="Email" :error="errors.email"/>
+            <BaseInput v-model="form.jobTitle" required label="Job Title" :error="errors.jobTitle"/>
           </b-form>
           <template #footer>
             <div class="btn-div">
@@ -91,8 +49,13 @@
 </template>
 
 <script>
+import BaseInput from "./components/BaseInput";
+
 export default {
   name: "App",
+  components: {
+    BaseInput,
+  },
   data() {
     return {
       errors: {
@@ -234,18 +197,6 @@ export default {
 .upload-avatar svg {
   width: 1rem;
   padding-top: 10%;
-}
-
-.error-message {
-  padding: 0 !important;
-  text-align: left;
-  color: #dd3444;
-  font-size: 0.8rem;
-  margin-bottom: 0;
-}
-
-.has-error {
-  border-color: #dd3444 !important;
 }
 
 .card-footer {
