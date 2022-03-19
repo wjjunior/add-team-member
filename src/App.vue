@@ -7,40 +7,37 @@
           title="Add Team Member"
           footer-tag="footer"
         >
-          <div
-            class="avatar mt-4"
-            :style="{ backgroundImage: `url(${form.avatar})` }"
-          >
-            <div class="upload-avatar" @click="onPickFile">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path
-                  d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"
-                />
-              </svg>
-            </div>
-          </div>
-          <input
-            type="file"
-            accept="image/*"
-            @change="uploadImage"
-            hidden
-            ref="fileInput"
-          />
+          <ImageUploader v-model="form.avatar" />
           <b-form class="register-form">
-            <BaseInput v-model="form.fullName" required label="Full Name" :error="errors.fullName"/>
-            <BaseInput v-model="form.email" required label="Email" :error="errors.email"/>
-            <BaseInput v-model="form.jobTitle" required label="Job Title" :error="errors.jobTitle"/>
+            <BaseInput
+              v-model="form.fullName"
+              required
+              label="Full Name"
+              :error="errors.fullName"
+            />
+            <BaseInput
+              v-model="form.email"
+              required
+              label="Email"
+              :error="errors.email"
+            />
+            <BaseInput
+              v-model="form.jobTitle"
+              required
+              label="Job Title"
+              :error="errors.jobTitle"
+            />
           </b-form>
           <template #footer>
             <div class="btn-div">
-            <b-button
-              variant="primary"
-              class="add-btn"
-              @click="submit()"
-              size="lg"
-              >Add Team Member</b-button
-            >
-          </div>
+              <b-button
+                variant="primary"
+                class="add-btn"
+                @click="submit()"
+                size="lg"
+                >Add Team Member</b-button
+              >
+            </div>
           </template>
         </b-card>
       </b-row>
@@ -50,11 +47,13 @@
 
 <script>
 import BaseInput from "./components/BaseInput";
+import ImageUploader from "./components/ImageUploader";
 
 export default {
   name: "App",
   components: {
     BaseInput,
+    ImageUploader,
   },
   data() {
     return {
@@ -73,20 +72,9 @@ export default {
   },
   methods: {
     submit() {
-      if(this.checkForm()) {
-        console.log(JSON.stringify(this.form))
+      if (this.checkForm()) {
+        console.log(JSON.stringify(this.form));
       }
-    },
-    uploadImage(e) {
-      const image = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onload = (e) => {
-        this.form.avatar = e.target.result;
-      };
-    },
-    onPickFile() {
-      this.$refs.fileInput.click();
     },
     checkForm() {
       this.errors = {
@@ -109,7 +97,7 @@ export default {
         this.errors.jobTitle = "Job Title is required.";
       }
 
-      return false
+      return false;
     },
   },
 };
@@ -169,34 +157,6 @@ export default {
   width: 100%;
   font-weight: bold !important;
   font-size: 0.9rem !important;
-}
-
-.avatar {
-  width: 150px;
-  height: 150px;
-  margin: auto;
-  border: 0.45rem solid #e4e7eb;
-  border-radius: 100%;
-  position: relative;
-  background-size: 100%;
-  background-repeat: no-repeat;
-}
-
-.upload-avatar {
-  border: 0.45rem solid #e4e7eb;
-  background-color: #fff;
-  width: 45px;
-  height: 45px;
-  border-radius: 100%;
-  position: absolute;
-  bottom: 3rem;
-  right: -1.5rem;
-  cursor: pointer;
-}
-
-.upload-avatar svg {
-  width: 1rem;
-  padding-top: 10%;
 }
 
 .card-footer {
