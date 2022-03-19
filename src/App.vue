@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import BaseInput from "./components/BaseInput";
 import ImageUploader from "./components/ImageUploader";
 
@@ -73,7 +74,9 @@ export default {
   methods: {
     submit() {
       if (this.checkForm()) {
-        console.log(JSON.stringify(this.form));
+        axios.post('api/v1/my-forml', {
+          jsonData: JSON.stringify(this.form)
+        })
       }
     },
     checkForm() {
