@@ -108,7 +108,6 @@ export default {
 
 .card {
   max-width: 30rem !important;
-  height: 40rem;
   padding: 0 !important;
 
   .card-title {
