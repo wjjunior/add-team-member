@@ -6,9 +6,25 @@
           style="max-width: 30rem; height: 40rem; padding: 0"
           title="Add Team Member"
         >
-          <div class="avatar mt-4">
-            <div class="upload-avatar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"/></svg></div>
+          <div
+            class="avatar mt-4"
+            :style="{ backgroundImage: `url(${form.avatar})` }"
+          >
+            <div class="upload-avatar" @click="onPickFile">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path
+                  d="M421.7 220.3L188.5 453.4L154.6 419.5L158.1 416H112C103.2 416 96 408.8 96 400V353.9L92.51 357.4C87.78 362.2 84.31 368 82.42 374.4L59.44 452.6L137.6 429.6C143.1 427.7 149.8 424.2 154.6 419.5L188.5 453.4C178.1 463.8 165.2 471.5 151.1 475.6L30.77 511C22.35 513.5 13.24 511.2 7.03 504.1C.8198 498.8-1.502 489.7 .976 481.2L36.37 360.9C40.53 346.8 48.16 333.9 58.57 323.5L291.7 90.34L421.7 220.3zM492.7 58.75C517.7 83.74 517.7 124.3 492.7 149.3L444.3 197.7L314.3 67.72L362.7 19.32C387.7-5.678 428.3-5.678 453.3 19.32L492.7 58.75z"
+                />
+              </svg>
+            </div>
           </div>
+          <input
+            type="file"
+            accept="image/*"
+            @change="uploadImage"
+            hidden
+            ref="fileInput"
+          />
           <b-form class="register-form">
             <b-row class="mt-4">
               <b-col class="label"><label>Full Name</label></b-col>
@@ -64,12 +80,24 @@ export default {
         username: "",
         email: "",
         jobTitle: "",
+        avatar: null,
       },
     };
   },
-  method: {
+  methods: {
     login() {
       console.log("login");
+    },
+    uploadImage(e) {
+      const image = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = (e) => {
+        this.form.avatar = e.target.result;
+      };
+    },
+    onPickFile() {
+      this.$refs.fileInput.click();
     },
   },
 };
@@ -136,13 +164,15 @@ export default {
   width: 150px;
   height: 150px;
   margin: auto;
-  border: 0.45rem solid #E4E7EB;
+  border: 0.45rem solid #e4e7eb;
   border-radius: 100%;
   position: relative;
-  }
-  
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
 .upload-avatar {
-  border: 0.45rem solid #E4E7EB;
+  border: 0.45rem solid #e4e7eb;
   background-color: #fff;
   width: 45px;
   height: 45px;
